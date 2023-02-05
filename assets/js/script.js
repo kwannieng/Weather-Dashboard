@@ -5,7 +5,6 @@ let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&
 
 
 
-
 $.ajax({
   url: queryURL,
   method: "GET"
@@ -25,8 +24,8 @@ let dDiv0 = $("<div>")
 //create the icon url and get the icon code from api response
 let iconCode = response.list[0].weather[0].icon;
 let iconURL = "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
-weatherIcon.attr('src', iconURL);
 let weatherIcon = $("<img>").attr("src", "").addClass("icon");
+weatherIcon.attr('src', iconURL);
 let searchCity = $("<h2>").text(city +" (" + todayDate +")")
 let tempC = response.list[0].main.temp - 273.15;
 let todayTemp = $("<p>").text("Temperature: " + tempC.toFixed(2) + "°C" )
@@ -42,95 +41,145 @@ dDiv0.append(todayTemp)
 dDiv0.append(todayWind)
 dDiv0.append(todayHumidty)
 
-//Get 5-Day Forecast
-for (d=0; d<5; d++){
-  let forecastDiv = $("<div>")
-  $("#forecast").append(forecastDiv)
 
-  let iconCode = response.list[d+1].weather[d+1].icon;
-  let iconURL = "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
-  weatherIcon.attr('src', iconURL);
-  let tempC = response.list[d+1].main.temp - 273.15;
-  let todayTemp = $("<p>").text("Temperature: " + tempC.toFixed(2) + "°C" )
-  let todayWind = $("<p>").text("Wind Speed: " + response.list[d+1].wind.speed + "meter/sec")
-  let todayHumidty = $("<p>").text("Humidity: " + response.list[d+1].main.humidity + "%")
+let forecastheading = $("<h4>").text("5-Day Forecst:").addClass("col-md-12")
 
 
-  $("#today").css("border","solid 1px")
-  $("#today").css("padding","5px")
-  $("#today").append(dDiv[d])
-  dDiv[d].append(searchCity)
-  dDiv[d].append(weatherIcon)
-  dDiv[d].append(todayTemp)
-  dDiv[d].append(todayWind)
-  dDiv[d].append(todayHumidty)
+let dDiv1 = $("<p>").addClass("futureD day-1 col-md-2")
+let dDiv2 = $("<p>").addClass("futureD day-2 col-md-2")
+let dDiv3 = $("<p>").addClass("futureD day-3 col-md-2")
+let dDiv4 = $("<p>").addClass("futureD day-4 col-md-2")
+let dDiv5 = $("<p>").addClass("futureD day-5 col-md-2")
 
 
+let F5D = $("<div>").addClass("container-fluid")
+let forecastRow = $("<div>").addClass("row")
 
-let forecastheading = $("<h4>").text("5-Day Forecst:")
-forecastDiv.append(forecastheading)
+$("#forecast").append(F5D)
 
+F5D.append(forecastheading)
+F5D.append(forecastRow)
 
-let firstDay = $("<div>").addClass("day1 col-md-12 ")
-forecastDiv.append(firstDay)
-let day1 = $("<h6>").text(moment().day(1).format("DD/MM/YYYY"))
-firstDay.append(day1)
-
-firstDay.css("border","solid 1px")
-firstDay.css("padding", "5px")
-
-
-let tempC1 = response.list[1].main.temp - 273.15;
-let temp1 = $("<p>").text("Temp: " + tempC1.toFixed(2) + "°C" )
-let wind1 = $("<p>").text("Wind: " + response.list[1].wind.speed + "meter/sec");
-let humidty1 = $("<p>").text("Humidity: " + response.list[1].main.humidity + "%");
-
-firstDay.append(temp1)
-firstDay.append(wind1)
-firstDay.append(humidty1)
+forecastRow.append(dDiv1)
+forecastRow.append(dDiv2)
+forecastRow.append(dDiv3)
+forecastRow.append(dDiv4)
+forecastRow.append(dDiv5)
 
 
+//1st day forecast
+let fDate1 = $("<h6>").text(moment().day(1).format("DD/MM/YYYY"))
+dDiv1.append(fDate1)
+
+let fIconCode1 = response.list[1].weather[0].icon
+  console.log(fIconCode1)
+
+  let fIconURL1 = "https://openweathermap.org/img/wn/" + fIconCode1 + "@2x.png";
+  let fWeatherIcon1 = $("<img>").attr("src", "").addClass("icon");
+  fWeatherIcon1.attr('src', fIconURL1);
+
+  let fTempC1 = response.list[1].main.temp - 273.15;
+  let fTemp1 = $("<p>").text("Temp: " + fTempC1.toFixed(2) + "°C" )
+  let fWind1 = $("<p>").text("Wind: " + response.list[1].wind.speed + "meter/sec")
+  let fHumidty1 = $("<p>").text("Humidity: " + response.list[1].main.humidity + "%")
+
+  dDiv1.css("padding","5px")
+  dDiv1.append(fWeatherIcon1)
+  dDiv1.append(fTemp1)
+  dDiv1.append(fWind1)
+  dDiv1.append(fHumidty1)
 
 
-let secondDay = $("<div>").addClass("day2 col-md-4 ")
-forecastDiv.append(secondDay)
-let day2 = $("<h6>").text(moment().day(2).format("DD/MM/YYYY"))
-secondDay.append(day2)
+//2nd day forecast
+let fDate2 = $("<h6>").text(moment().day(2).format("DD/MM/YYYY"))
+dDiv2.append(fDate2)
 
-let thirdDay = $("<div>").addClass("day3 col-md-4 ")
-forecastDiv.append(thirdDay)
-let day3 = $("<h6>").text(moment().day(3).format("DD/MM/YYYY"))
-thirdDay.append(day3)
+  let fIconCode2 = response.list[2].weather[0].icon
+  console.log(fIconCode2)
 
-let forthDay = $("<div>").addClass("day4 col-md-4 ")
-forecastDiv.append(forthDay)
-let day4 = $("<h6>").text(moment().day(4).format("DD/MM/YYYY"))
-forthDay.append(day4)
+  let fIconURL2 = "https://openweathermap.org/img/wn/" + fIconCode2 + "@2x.png";
+  let fWeatherIcon2 = $("<img>").attr("src", "").addClass("icon");
+  fWeatherIcon2.attr('src', fIconURL2);
 
-let fifthDay = $("<div>").addClass("day5 col-md-4 ")
-forecastDiv.append(fifthDay)
-let day5 = $("<h6>").text(moment().day(5).format("DD/MM/YYYY"))
-fifthDay.append(day5)
+  let fTempC2 = response.list[2].main.temp - 273.15;
+  let fTemp2 = $("<p>").text("Temp: " + fTempC2.toFixed(2) + "°C" )
+  let fWind2 = $("<p>").text("Wind: " + response.list[2].wind.speed + "meter/sec")
+  let fHumidty2 = $("<p>").text("Humidity: " + response.list[2].main.humidity + "%")
+
+  dDiv2.css("padding","5px")
+  dDiv2.append(fWeatherIcon2)
+  dDiv2.append(fTemp2)
+  dDiv2.append(fWind2)
+  dDiv2.append(fHumidty2)
+
+//3rd day forecast
+let fDate3 = $("<h6>").text(moment().day(3).format("DD/MM/YYYY"))
+dDiv3.append(fDate3)
+
+  let fIconCode3 = response.list[3].weather[0].icon
+  console.log(fIconCode3)
+
+  let fIconURL3 = "https://openweathermap.org/img/wn/" + fIconCode3 + "@2x.png";
+  let fWeatherIcon3 = $("<img>").attr("src", "").addClass("icon");
+  fWeatherIcon3.attr('src', fIconURL3);
+
+  let fTempC3 = response.list[3].main.temp - 273.15;
+  let fTemp3 = $("<p>").text("Temp: " + fTempC3.toFixed(2) + "°C" )
+  let fWind3 = $("<p>").text("Wind: " + response.list[3].wind.speed + "meter/sec")
+  let fHumidty3 = $("<p>").text("Humidity: " + response.list[3].main.humidity + "%")
+
+  dDiv3.css("padding","5px")
+  dDiv3.append(fWeatherIcon3)
+  dDiv3.append(fTemp3)
+  dDiv3.append(fWind3)
+  dDiv3.append(fHumidty3)
 
 
-// $("#today").css("border","solid 1px")
-// $("#today").css("padding","5px")
-// $("#today").append(todayDiv)
-// forecastDiv.append(searchCity)
-// forecastDiv.append(todayTemp)
-// forecastDiv.append(todayWind)
-// forecastDiv.append(todayHumidty)
+  //4th day forecast
+  let fDate4 = $("<h6>").text(moment().day(4).format("DD/MM/YYYY"))
+  dDiv4.append(fDate4)
 
+  let fIconCode4 = response.list[4].weather[0].icon
+  console.log(fIconCode4)
 
+  let fIconURL4 = "https://openweathermap.org/img/wn/" + fIconCode4 + "@2x.png";
+  let fWeatherIcon4 = $("<img>").attr("src", "").addClass("icon");
+  fWeatherIcon4.attr('src', fIconURL4);
 
+  let fTempC4 = response.list[4].main.temp - 273.15;
+  let fTemp4 = $("<p>").text("Temp: " + fTempC4.toFixed(2) + "°C" )
+  let fWind4 = $("<p>").text("Wind: " + response.list[4].wind.speed + "meter/sec")
+  let fHumidty4 = $("<p>").text("Humidity: " + response.list[4].main.humidity + "%")
 
-  // forecastDiv.append(forecastTemp)
-  // forecastDiv.append(forecastWind)
-  // forecastDiv.append(forecastHumidty)
+  dDiv4.css("padding","5px")
+  dDiv4.append(fWeatherIcon4)
+  dDiv4.append(fTemp4)
+  dDiv4.append(fWind4)
+  dDiv4.append(fHumidty4)
 
+  
+  //5th day forecast
+  let fDate5 = $("<h6>").text(moment().day(5).format("DD/MM/YYYY"))
+  dDiv5.append(fDate5)
 
+  let fIconCode5 = response.list[5].weather[0].icon
+  console.log(fIconCode5)
 
-}
+  let fIconURL5 = "https://openweathermap.org/img/wn/" + fIconCode5 + "@2x.png";
+  let fWeatherIcon5 = $("<img>").attr("src", "").addClass("icon");
+  fWeatherIcon5.attr('src', fIconURL2);
+
+  let fTempC5 = response.list[5].main.temp - 273.15;
+  let fTemp5 = $("<p>").text("Temp: " + fTempC5.toFixed(2) + "°C" )
+  let fWind5 = $("<p>").text("Wind: " + response.list[5].wind.speed + "meter/sec")
+  let fHumidty5 = $("<p>").text("Humidity: " + response.list[5].main.humidity + "%")
+
+  dDiv5.css("padding","5px")
+  dDiv5.append(fWeatherIcon5)
+  dDiv5.append(fTemp5)
+  dDiv5.append(fWind5)
+  dDiv5.append(fHumidty5)
+
 
 })
 
