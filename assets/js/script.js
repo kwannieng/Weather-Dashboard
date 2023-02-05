@@ -1,9 +1,25 @@
+$( document ).ready(function() {
 let todayDate = moment().format("DD/MM/YYYY")
 let APIKey = "1673070f077419daf583240cb1a971fe";
-let city = "London";
-let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
+let searchCity ="";
 
 
+// function  (){
+
+
+// }
+
+
+$("#search-button").on("click", function(event) {
+event.preventDefault()
+
+
+searchCity = $("#search-input").val().trim()
+console.log(searchCity)
+
+
+
+let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + "&appid=" + APIKey;
 
 $.ajax({
   url: queryURL,
@@ -26,7 +42,7 @@ let iconCode = response.list[0].weather[0].icon;
 let iconURL = "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
 let weatherIcon = $("<img>").attr("src", "").addClass("icon");
 weatherIcon.attr('src', iconURL);
-let searchCity = $("<h2>").text(city +" (" + todayDate +")")
+let cityName = $("<h2>").text(searchCity +" (" + todayDate +")")
 let tempC = response.list[0].main.temp - 273.15;
 let todayTemp = $("<p>").text("Temperature: " + tempC.toFixed(2) + "°C" )
 let todayWind = $("<p>").text("Wind Speed: " + response.list[0].wind.speed + "meter/sec")
@@ -35,7 +51,7 @@ let todayHumidty = $("<p>").text("Humidity: " + response.list[0].main.humidity +
 $("#today").css("border","solid 1px")
 $("#today").css("padding","5px")
 $("#today").append(dDiv0)
-dDiv0.append(searchCity)
+dDiv0.append(cityName)
 dDiv0.append(weatherIcon)
 dDiv0.append(todayTemp)
 dDiv0.append(todayWind)
@@ -184,22 +200,9 @@ dDiv3.append(fDate3)
 })
 
 
-
-
-// $("#search-button").on("click", function() {
-
-// searchCity.text(`${response.name} ${todayDate}`);
-// let searchCity = $("<h2>")
-
-
-//    // Convert the temp to Celsius
-//    
-//     console.log(tempC);
+})
 
 
 
-//     // Transfer content to HTML
 
-
-//   })
-//   });
+})
