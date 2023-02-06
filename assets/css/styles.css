@@ -3,3 +3,10 @@ background-color: darkblue;
 color: white;
 margin:10px;
 }
+
+
+.historyButton {
+margin: 10px;
+background-color:darkgray;
+border-radius: 5px;
+}

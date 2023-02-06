@@ -4,24 +4,17 @@ let APIKey = "1673070f077419daf583240cb1a971fe";
 let searchCity ="";
 
 
-// function  (){
-
-
-// }
-
-
 $("#search-button").on("click", function(event) {
-event.preventDefault()
+  event.preventDefault()
+  searchCity = $("#search-input").val().trim()
+  console.log(searchCity)
+getResponse()
+saveToHistory()
+})
 
-
-searchCity = $("#search-input").val().trim()
-console.log(searchCity)
-
-
-
-let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + "&appid=" + APIKey;
-
-$.ajax({
+function getResponse() {
+  let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + "&appid=" + APIKey;
+  $.ajax({
   url: queryURL,
   method: "GET"
 }).then(function(response) {
@@ -50,7 +43,7 @@ let todayHumidty = $("<p>").text("Humidity: " + response.list[0].main.humidity +
 
 $("#today").css("border","solid 1px")
 $("#today").css("padding","5px")
-$("#today").append(dDiv0)
+$("#today").empty().append(dDiv0)
 dDiv0.append(cityName)
 dDiv0.append(weatherIcon)
 dDiv0.append(todayTemp)
@@ -71,7 +64,7 @@ let dDiv5 = $("<p>").addClass("futureD day-5 col-md-2")
 let F5D = $("<div>").addClass("container-fluid")
 let forecastRow = $("<div>").addClass("row")
 
-$("#forecast").append(F5D)
+$("#forecast").empty().append(F5D)
 
 F5D.append(forecastheading)
 F5D.append(forecastRow)
@@ -195,12 +188,27 @@ dDiv3.append(fDate3)
   dDiv5.append(fTemp5)
   dDiv5.append(fWind5)
   dDiv5.append(fHumidty5)
-
-
 })
 
 
+}
+
+function saveToHistory (){
+let historyButton = $("<button>").addClass("historyButton")
+localStorage.setItem("city", searchCity)
+historyButton.text(localStorage.getItem("city"))
+
+$("#history").append(historyButton)
+
+historyButton.on("click", function (event){
+  event.preventDefault()
+  console.log(this)
+  searchCity = this.innerText 
+  getResponse()
 })
+}
+
+
 
 
 
