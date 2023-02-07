@@ -77,8 +77,10 @@ forecastRow.append(dDiv5)
 
 
 //1st day forecast
-let fDate1 = $("<h6>").text(moment().day(1).format("DD/MM/YYYY"))
+let fDate1 = $("<h6>").text(moment().add(1,'days').format("DD/MM/YYYY"))
 dDiv1.append(fDate1)
+
+
 
 let fIconCode1 = response.list[1].weather[0].icon
   console.log(fIconCode1)
@@ -100,7 +102,7 @@ let fIconCode1 = response.list[1].weather[0].icon
 
 
 //2nd day forecast
-let fDate2 = $("<h6>").text(moment().day(2).format("DD/MM/YYYY"))
+let fDate2 = $("<h6>").text(moment().add(2,'days').format("DD/MM/YYYY"))
 dDiv2.append(fDate2)
 
   let fIconCode2 = response.list[2].weather[0].icon
@@ -122,7 +124,7 @@ dDiv2.append(fDate2)
   dDiv2.append(fHumidty2)
 
 //3rd day forecast
-let fDate3 = $("<h6>").text(moment().day(3).format("DD/MM/YYYY"))
+let fDate3 = $("<h6>").text(moment().add(3,'days').format("DD/MM/YYYY"))
 dDiv3.append(fDate3)
 
   let fIconCode3 = response.list[3].weather[0].icon
@@ -145,7 +147,7 @@ dDiv3.append(fDate3)
 
 
   //4th day forecast
-  let fDate4 = $("<h6>").text(moment().day(4).format("DD/MM/YYYY"))
+  let fDate4 = $("<h6>").text(moment().add(4,'days').format("DD/MM/YYYY"))
   dDiv4.append(fDate4)
 
   let fIconCode4 = response.list[4].weather[0].icon
@@ -168,7 +170,7 @@ dDiv3.append(fDate3)
 
   
   //5th day forecast
-  let fDate5 = $("<h6>").text(moment().day(5).format("DD/MM/YYYY"))
+  let fDate5 = $("<h6>").text(moment().add(5,'days').format("DD/MM/YYYY"))
   dDiv5.append(fDate5)
 
   let fIconCode5 = response.list[5].weather[0].icon
