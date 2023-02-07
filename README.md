@@ -12,4 +12,4 @@ A website shows weather forecast of different cities, and log the search history
 
 ## Link to deployed application:
 
-https://kwannieng.github.io/Weather-Dasboard
+https://kwannieng.github.io/Weather-Dashboard/
